@@ -369,9 +369,8 @@ func (app *application) run() int {
 				close(app.closeChan)
 			}
 			level.Info(app.logger).Log("message", "pseudowire terminated")
-			if !shutdown {
-				app.closeSession(pw.getSession())
-			}
+			app.closeSession(pw.getSession())
+			close(app.closeChan)
 		case <-app.closeChan:
 			return 0
 		}
